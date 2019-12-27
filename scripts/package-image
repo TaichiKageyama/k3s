@@ -10,5 +10,6 @@ REPO=${REPO:-taichikageyama}
 IMAGE_NAME=${IMAGE_NAME:-k3s}
 
 IMAGE=${REPO}/${IMAGE_NAME}:${TAG}
-docker build -t ${IMAGE} -f package/Dockerfile .
+cp dist/artifacts/k3s* build/out/k3s
+docker build -t ${IMAGE} -f package/Dockerfile.debian .
 echo Built ${IMAGE}
