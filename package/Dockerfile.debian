@@ -1,12 +1,13 @@
-FROM debian:buster-slim
+FROM debian:stretch-slim
 LABEL maintainer="32001477+TaichiKageyama@users.noreply.github.com"
-LABEL description="ceph-common"
 RUN     set -ex;                                                          \
+	echo "deb http://deb.debian.org/debian stretch-backports main"    \
+		>> /etc/apt/sources.list;			          \
         apt-get -qq update;                                               \
         DEBIAN_FRONTEND=noninteractive apt-get -qq                        \
             -o Dpkg::Options::="--force-confdef"                          \
             -o Dpkg::Options::="--force-confold"                          \
-        install --no-install-recommends ceph-common;                      \
+        install --no-install-recommends ceph-common rbd-nbd;              \
     apt-get -qq autoclean -y;                                             \
     apt-get -qq clean -y;                                                 \
     rm -rf /var/lib/apt/lists/*;					  \
