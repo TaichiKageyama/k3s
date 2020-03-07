@@ -104,7 +104,7 @@ func (c *AggregationController) processNextWorkItem() bool {
 		// higher level to avoid flooding the log
 		klog.V(5).Infof("OpenAPI AggregationController: Processing item %s", key)
 	} else {
-		klog.Infof("OpenAPI AggregationController: Processing item %s", key)
+		klog.V(1).Infof("OpenAPI AggregationController: Processing item %s", key)
 	}
 
 	action, err := c.syncHandler(key.(string))
