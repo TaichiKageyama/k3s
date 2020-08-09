@@ -21,7 +21,7 @@ RUN rm -rf /go/src /go/pkg
 ARG DAPPER_HOST_ARCH
 ENV ARCH $DAPPER_HOST_ARCH
 
-ARG DQLITE=true
+ARG DQLITE=false
 ENV DQLITE $DQLITE
 COPY --from=rancher/dqlite-build:v1.4.1-r1 /dist/artifacts /usr/src/
 RUN if [ "$DQLITE" = true ]; then \
