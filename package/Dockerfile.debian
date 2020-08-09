@@ -1,0 +1,18 @@
+FROM debian:buster-slim
+LABEL maintainer="32001477+TaichiKageyama@users.noreply.github.com"
+RUN     set -ex;                                                          \
+        echo "deb http://deb.debian.org/debian buster-backports main"     \
+                >> /etc/apt/sources.list;                                 \
+        apt-get -qq update;                                               \
+        DEBIAN_FRONTEND=noninteractive apt-get -qq                        \
+            -o Dpkg::Options::="--force-confdef"                          \
+            -o Dpkg::Options::="--force-confold"                          \
+        -t buster-backports                                               \
+        install --no-install-recommends ceph-common rbd-nbd;              \
+    apt-get -qq autoclean -y;                                             \
+    apt-get -qq clean -y;                                                 \
+    rm -rf /var/lib/apt/lists/*;                                          \
+    echo "export PS1='[k3s]# '" >> /root/.bashrc;
+ADD build/out/k3s /sbin/k3s
+ENTRYPOINT ["/sbin/k3s"]
+CMD ["agent"]
