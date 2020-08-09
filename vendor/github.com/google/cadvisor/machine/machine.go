@@ -328,8 +328,8 @@ func GetTopology(sysFs sysfs.SysFs, cpuinfo string) ([]info.Node, int, error) {
 	for idx, node := range nodes {
 		caches, err := sysinfo.GetCacheInfo(sysFs, node.Cores[0].Threads[0])
 		if err != nil {
-			klog.Errorf("failed to get cache information for node %d: %v", node.Id, err)
-			continue
+			klog.V(1).Infof("failed to get cache information for node %d: %v", node.Id, err)
+                        continue
 		}
 		numThreadsPerCore := len(node.Cores[0].Threads)
 		numThreadsPerNode := len(node.Cores) * numThreadsPerCore
