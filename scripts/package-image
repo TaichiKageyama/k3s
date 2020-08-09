@@ -14,5 +14,6 @@ PROXY_OPTS=
 [ -z "$http_proxy" ] || PROXY_OPTS="$PROXY_OPTS --build-arg http_proxy=$http_proxy"
 [ -z "$https_proxy" ] || PROXY_OPTS="$PROXY_OPTS --build-arg https_proxy=$https_proxy"
 [ -z "$no_proxy" ] || PROXY_OPTS="$PROXY_OPTS --build-arg no_proxy=$no_proxy"
-docker build ${PROXY_OPTS} -t ${IMAGE} -f package/Dockerfile .
+cp dist/artifacts/k3s* build/out/k3s
+docker build ${PROXY_OPTS} -t ${IMAGE} -f package/Dockerfile.debian .
 echo Built ${IMAGE}
